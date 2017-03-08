@@ -2,6 +2,9 @@
 logs
 *.log
 
+#Swap
+*.swp
+
 # Runtime data
 pids
 *.pid
