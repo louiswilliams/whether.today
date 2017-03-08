@@ -12,12 +12,20 @@ $(document).ready(function() {
 
   $location.html("Getting location...");
 
+  var now = new Date().getTime() / 1000;
   var cityId = sessionStorage.getItem("cityId");
+  var lastStorage = sessionStorage.getItem("lastStorage");
   if (storageAvailable && cityId) {
     console.log("Session data available");
-    onPosition({
-      cityId: cityId
-    });
+    // If it's been 5 minutes, allow refresh
+    if (now - lastStorage < 5*60) {
+      onPosition({
+        cityId: cityId
+      });
+    } else {
+      console.log("Session data expired");
+      getLocation();
+    }
   } else {
     getLocation();
   }
@@ -44,11 +52,16 @@ function onPosition(position) {
       console.log("result", data);
       $forecast.html(data.result);
 
-      $weather.html("It's " + data.temp.toFixed(1) + " &deg;F, " + data.description +  ", " + data.windSpeed.toFixed(1) + " MPH winds.");
+      var weatherInfo = "It's " + data.temp.toFixed(1) + " &deg;F, " + data.description +  ", " + data.windSpeed.toFixed(1) + " MPH winds.";
+      if (data.feelsLike < data.temp) {
+        weatherInfo += " <i>Feels like " + data.feelsLike.toFixed(1) + " &deg;F</i>";
+      }
+      $weather.html(weatherInfo);
       $location.html(data.location);
 
     if (storageAvailable) {
       sessionStorage.setItem("cityId", data.cityId);
+      sessionStorage.setItem("lastStorage", new Date().getTime() / 1000);
     }
       
     }
