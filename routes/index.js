@@ -82,11 +82,11 @@ router.post('/api/getinfo', function(req, res) {
                + clothesFromTemp(feelsLike)
                + ", but bring an umbrella or raincoat."; 
       } else if (weatherCode >= 600 && weatherCode < 700) { // Snow
-        result = "It's snowing. Wear"
+        result = "It's snowing. Wear "
                + clothesFromTemp(feelsLike) 
-               + " with boots and a raincoat.";
+               + " with boots. Consider a raincoat.";
       } else if (weatherCode > 800 && weatherCode < 900) { // Clouds
-        result = "It's cloudy. Wear a " + clothesFromTemp(feelsLike) + ".";
+        result = "It's cloudy. Wear " + clothesFromTemp(feelsLike) + ".";
       }
 
      var sendBack = {
