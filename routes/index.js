@@ -80,7 +80,7 @@ router.post('/api/getinfo', function(req, res) {
      } else if (weatherCode >= 200 && weatherCode < 600) { // Rain
         result = "It's raining. Wear "
                + clothesFromTemp(feelsLike)
-               + ", but bring an umbrella or raincoat."; 
+               + " with an umbrella/raincoat."; 
       } else if (weatherCode >= 600 && weatherCode < 700) { // Snow
         result = "It's snowing. Wear"
                + clothesFromTemp(feelsLike) 
